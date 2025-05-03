@@ -14,6 +14,7 @@ class Core{
             if(Env::get("APP_INSTALL") == "true"){
                 \Modules\Core\Modul\Install::seach_files();
             } 
+            \Modules\Core\Modul\Router::start();
         } catch (\Throwable $e) {
             $this->e500([
                 'error_message' => $e->getMessage(),
