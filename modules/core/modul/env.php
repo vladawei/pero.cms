@@ -29,7 +29,7 @@ class Env
         self::$initialized = true;
     }
 
-    public static function get(string $key, mixed $default = null)
+    public static function get(string $key, $default = null)
     {
         if (!self::$initialized) {
             self::load();
