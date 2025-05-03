@@ -1,10 +1,11 @@
 <?php
 define('APP_ROOT', __DIR__);
 define('DS', DIRECTORY_SEPARATOR); 
-
 // Автозагрузчик
+
 spl_autoload_register(function ($className) {
     $classPath = str_replace(['\\', '_'], DS, $className);
+    $classPath = strtolower($classPath);
     $file = APP_ROOT . DS . $classPath . '.php';
     
     if (file_exists($file)) {
