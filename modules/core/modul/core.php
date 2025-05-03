@@ -4,6 +4,7 @@ namespace Modules\Core\Modul;
 
 class Core{
     public function __construct(){
-        echo "Класс успешно загружен!";
+        Env::load();
+        var_dump(Env::get("APP_NAME"));
     }
 }
