@@ -2,7 +2,7 @@
 
 namespace Modules\Core\Install;
 
-class Router {
+class Router  extends \Modules\Abs\Install{
 
     public function install_BD(){
         $table = [];
@@ -18,6 +18,31 @@ class Router {
         return $table;
     }
 
-    
+    public function install_Router(){
+        $table = [];
+        /*
+        $table[] = [
+            "url"           => "/",
+            "class"         => "Modules\Core\Controller\Index",
+            "function"      => "index",
+            "title"         => "Главная страница",
+            "description"   => "Описание главной страницы",
+            "keys"          => "Главная страница ключ",
+            "name"          => "Главная страница",
+            "add_to_sitemap"=> true,
+            "lastmod_s"     => time(),
+            "change_s"      => "monthly",
+            "priority_s"    => 0.5
+        ];    */
+
+
+        return $table;
+    }
+
+    public function install_Congif(){
+        $table = [];
+
+        return $table;
+    }
     
 }
