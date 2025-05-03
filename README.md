@@ -3,6 +3,8 @@
 Простая и быстрая CMS для разработчиков
 
 ## Структура проекта
+
+```markdown
 /home/redlava/webserver/pero.cms/
 ├── cache/ # Кэш системы
 ├── logs/ # Логи приложения

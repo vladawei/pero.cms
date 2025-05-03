@@ -15,6 +15,13 @@ class Logs{
      * @param string $logFile Имя файла лога (по умолчанию 'logs.txt')
      * @return bool Возвращает true при успешной записи
      * @throws \RuntimeException При ошибках файловой системы
+     * 
+     */
+
+    /*
+    пример использования
+     $logger = new \Modules\Core\Modul\Logs();
+     $logger->loging('core', 'ядро загружено');
      */
     public function loging(string $modName, string $text, string $logFile = self::DEFAULT_LOG_FILE): bool {
         if (empty($modName) || empty($text)) {
