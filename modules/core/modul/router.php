@@ -23,8 +23,26 @@ class Router{
 
         $class = $result_sql["class"];
         $funct = $result_sql["funct"];
-        $result = new $class;
-        $result->$funct();
+
+        if (!class_exists($class)) {
+            self::e500("Класс '$class' не найден.");
+            return;
+        }
+
+
+        $controller = new $class;
+
+        if (!method_exists($controller, $funct) || !(new \ReflectionMethod($controller, $funct))->isPublic()) {
+            self::e500("Метод '$funct' в классе '$class' не найден или недоступен.");
+            return;
+        }
+
+        try {
+            // Вызов контроллера и метода
+            $controller->$funct();
+        } catch (\Throwable $e) {
+            self::e500("Ошибка при вызове метода '$class::$funct': " . $e->getMessage());
+        }
     }
 
     public static function need_redirect300(){
@@ -33,7 +51,7 @@ class Router{
             if(isset(self::$url["get_in_line"]) and self::$url["d_of_get_line"] != ""){
                 $url = $url."?".self::$url["d_of_get_line"];
             }
-            header("Location: ".$url);
+            header("Location: $url", true, 301);
             die();
         }
         return;
