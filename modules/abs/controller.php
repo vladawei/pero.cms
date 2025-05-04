@@ -7,6 +7,9 @@ abstract class Controller{
     public $page_load;
     public $list_file;
     public $data;
+    public $cache_isset = false;
+    public $cache_filename;
+
     public function show( $cash = false){
         switch ($this->type_show ) {
             case "default":
@@ -40,41 +43,36 @@ abstract class Controller{
         $this->links();
     }
 
-    public function empty($h){
-        $h["view"]["page_load"] = MYPOS."/mod/core/view/head.php";              
-        $h = $this->links($h);
-        $this->draw($h);
-        return $h;
+    public function empty(){
+        $this->page_load = APP_ROOT."/modules/core/view/head.php";              
+        $this->links();
+        $this->draw();
     }
 
-    public function admin($h){
+    public function admin(){
         $build_l_menu = new \Mod\Core\Modul\Builderlmenu;
         $h = $build_l_menu ->build($h);
         $build_pex = new \Mod\Admin\Modul\Pex;
         $h = $build_pex ->seach_files($h);
 
-        $h["view"]["page_load"] = MYPOS."/mod/core/view/head.php";              
-        $h = $this->links($h);
-        $h["view"]["page_load"] = MYPOS."/mod/core/view/admin/lmenu.php";              
-        $h = $this->links($h);
-        $h["view"]["page_load"] = MYPOS."/mod/core/view/admin/header.php";              
-        $h = $this->links($h);
-
-        $this->draw($h);
-
-        $h["view"]["page_load"] = MYPOS."/mod/core/view/admin/rmenu.php";              
-        $h = $this->links($h);
-        return $h;
+        $this->page_load = APP_ROOT."/modules/core/view/head.php";              
+        $this->links();
+        $this->page_load = APP_ROOT."/modules/core/view/admin/lmenu.php";              
+        $this->links();
+        $this->page_load = APP_ROOT."/modules/core/view/admin/header.php";              
+        $this->links();
+        $this->draw();
+        $this->page_load = APP_ROOT."/modules/core/view/admin/rmenu.php";              
+        $this->links();
+        
     }
 
-    public function ajax($h){
-        $this->draw($h);
-        return $h;
+    public function ajax(){
+        $this->draw();
     }
 
-    public function api($h){
-        $this->draw($h);
-        return $h;
+    public function api(){
+        $this->draw();
     }
 
     public function errors(){
@@ -87,27 +85,27 @@ abstract class Controller{
         $this->links();
     }
 
-    public function cashe_start($h){
-        
-        $h["cache"]["isset"] = false;
-        if(!$h["cache"]["job"]) return $h;
-        $file_name = md5($h["url"]["d_line"]."g".$h["url"]["d_of_get_line"]);
-        $h["cache"]["filename"] = MYPOS.SLASH.'cache'.SLASH.$file_name.'.cache';
-        if (file_exists($h["cache"]["filename"])) {
-            $h["cache"]["isset"] = true;
-            $c = @file_get_contents($h["cache"]["filename"] );
+    public function cashe_start(){        
+        $this->cache_isset = false;
+        if(\Modules\Core\Modul\Env::get("VIEW_CACHE") != "true") return;        
+        $file_name = md5(\Modules\Core\Modul\Router::$url["d_line"]."g".\Modules\Core\Modul\Router::$url["d_of_get_line"]);
+        $this->cache_filename = APP_ROOT.DS.'cache'.DS.$file_name.'.cache';
+
+        if (file_exists($this->cache_filename)) {
+            $this->cache_isset = true;
+            $c = @file_get_contents($this->cache_filename);
             echo $c;
-            return $h;
+            return;
         } 
         ob_start();
-        return $h;
+        return ;
     }
 
-    public function cashe_end($h){
-        if(!$h["cache"]["job"]) return $h;
+    public function cashe_end(){
+        if(\Modules\Core\Modul\Env::get("VIEW_CACHE") != "true") return;   
         $c = ob_get_contents();
-        file_put_contents($h["cache"]["filename"], $c);
-        return $h;
+        file_put_contents($this->cache_filename, $c);
+        return ;
     }
 
 
