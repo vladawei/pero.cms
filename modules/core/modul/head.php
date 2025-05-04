@@ -13,6 +13,7 @@ class Head{
     public static $theme_color;
     public static $viewport;
     public static $sql_data;
+    public static $name;
 
     public static function load(){
         if(!self::$first_load){
@@ -42,6 +43,8 @@ class Head{
         self::$lang = \Modules\Core\Modul\Env::get("HEAD_LANGUAGE");
         self::$theme_color = \Modules\Core\Modul\Env::get("HEAD_THEME_COLOR");
         self::$viewport = \Modules\Core\Modul\Env::get("HEAD_VIEWPORT");
+
+        self::$name = \Modules\Core\Modul\Env::get("HEAD_NAME");
     }
 
     public static function data_load(){
@@ -50,8 +53,23 @@ class Head{
         $sth1 = $pdo->prepare("SELECT * FROM $db_name WHERE `url` = ? LIMIT 1");
         $sth1->execute(array(\Modules\Core\Modul\Router::$url["d_line"]));
         self::$sql_data = $sth1->fetch(\PDO::FETCH_ASSOC);
+        var_dump(self::$sql_data);
     }
 
     public static function data_insert(){
+        if(isset(self::$sql_data["title_q"])){
+            self::$title = \Modules\Core\Modul\Env::get("HEAD_TITLE_PREFIX")
+                .self::$sql_data["title_q"]
+                .\Modules\Core\Modul\Env::get("HEAD_TITLE_SUFFIX");
+        }
+        if(isset(self::$sql_data["description_q"])){
+            self::$description = \Modules\Core\Modul\Env::get("HEAD_TITLE_PREFIX")
+                .self::$sql_data["description_q"]
+                .\Modules\Core\Modul\Env::get("HEAD_TITLE_SUFFIX");
+        }
+
+        if(isset(self::$sql_data["name_q"])){
+            self::$name = self::$sql_data["name_q"];
+        }
     }
 }
