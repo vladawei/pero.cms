@@ -7,6 +7,7 @@ Class Index extends \Modules\Abs\Controller{
         $this->cashe_start();
         if($this->cache_isset) return ;
 
+        \Modules\Core\Modul\Head::load();
         $this->type_show = "default";
         $this->list_file[] = APP_ROOT."/modules/core/view/index.php";
         $this->show();

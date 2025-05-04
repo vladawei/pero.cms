@@ -7,7 +7,7 @@ class Head  extends \Modules\Abs\Install{
     public function install_BD(){
         $table = [];
         $table[] = '
-        CREATE TABLE heads (
+        CREATE TABLE '.\Modules\Core\Modul\Env::get("DB_PREFIX").'heads (
         id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
         PRIMARY KEY(id),
         url VARCHAR(255) NOT NULL, 
