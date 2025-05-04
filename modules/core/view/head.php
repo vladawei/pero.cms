@@ -9,6 +9,8 @@
     echo '<link rel="icon" href="'.\Modules\Core\Modul\Head::$ico_href.'" type="'.\Modules\Core\Modul\Head::$ico_type.'">';
     echo '<meta name="theme-color" content="'.\Modules\Core\Modul\Head::$theme_color.'">';
     echo '<meta http-equiv="Content-Language" content="'.\Modules\Core\Modul\Head::$lang.'">';
+    echo \Modules\Core\Modul\Resource::load_css();
+    echo \Modules\Core\Modul\Resource::load_js();
 ?>
 
 </head>

@@ -53,7 +53,6 @@ class Head{
         $sth1 = $pdo->prepare("SELECT * FROM $db_name WHERE `url` = ? LIMIT 1");
         $sth1->execute(array(\Modules\Core\Modul\Router::$url["d_line"]));
         self::$sql_data = $sth1->fetch(\PDO::FETCH_ASSOC);
-        var_dump(self::$sql_data);
     }
 
     public static function data_insert(){
