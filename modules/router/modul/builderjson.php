@@ -75,7 +75,7 @@ class Builder{
     }
 
     public function save_routes_to_file(){
-        $outputFile = $this->modulesDir . DS . 'router' . DS . 'install' . DS . 'buildrouter.json';
+        $outputFile = $this->modulesDir . DS . 'router' . DS . 'install' . DS . 'buildrouterjson.json';
 
         $installDir = dirname($outputFile);
         if (!is_dir($installDir)) {
@@ -92,7 +92,7 @@ class Builder{
 
         if ($json === false) {
             $logger = new \Modules\Core\Modul\Logs();       
-            $logger->loging('router', "['ошибка'] Не удалось сгенерировать JSON для buildrouter.json");
+            $logger->loging('router', "['ошибка'] Не удалось сгенерировать JSON для buildrouterjson.json");
             return false;
         }
 
@@ -100,7 +100,7 @@ class Builder{
 
         if ($result === false) {
             $logger = new \Modules\Core\Modul\Logs();       
-            $logger->loging('router', "['ошибка'] Не удалось записать buildrouter.json");
+            $logger->loging('router', "['ошибка'] Не удалось записать buildrouterjson.json");
             return false;
         }
 
