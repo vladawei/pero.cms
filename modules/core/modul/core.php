@@ -15,6 +15,17 @@ class Core{
                 \Modules\Core\Modul\Install::seach_files();
             } 
             \Modules\Core\Modul\Router::start();
+
+            $builder = new \Modules\Router\Modul\Builder();
+            $builder->build();
+
+            // Сохраняем собранные роуты в файл
+            if ($builder->save_routes_to_file()) {
+                echo "Роуты успешно сохранены!";
+            } else {
+                echo "Ошибка при сохранении роутов!";
+            }
+
         } catch (\Throwable $e) {
             $this->e500([
                 'error_message' => $e->getMessage(),
