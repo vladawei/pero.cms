@@ -15,8 +15,18 @@ class Core{
                 \Modules\Core\Modul\Install::seach_files();
             } 
             \Modules\Core\Modul\Router::start();
+            $builderSql = new \Modules\Router\Modul\Buildersql();
+            $builderSql->build(); // Загружаем маршруты из SQL
 
-            $builder = new \Modules\Router\Modul\Builder();
+            // Сохраняем в файл
+            if ($builderSql->save_routes_to_file()) {
+                echo "SQL роутинг успешен!";
+            } else {
+                echo "ошибка!";
+            }
+
+/*
+            $builder = new \Modules\Router\Modul\Builderjson();
             $builder->build();
 
             // Сохраняем собранные роуты в файл
@@ -25,7 +35,7 @@ class Core{
             } else {
                 echo "Ошибка при сохранении роутов!";
             }
-
+*/
         } catch (\Throwable $e) {
             $this->e500([
                 'error_message' => $e->getMessage(),

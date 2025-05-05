@@ -2,7 +2,7 @@
 
 namespace Modules\Router\Modul;
 
-class Builder{
+class Builderjson{
     private array $routes = [];
     private string $modulesDir = APP_ROOT . DS. 'modules';
 
