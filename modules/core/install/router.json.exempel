@@ -1,0 +1,6 @@
+[
+    ["/12/", "Modules\\Core\\Controllers\\HomeController", "index12"],
+    ["/auth/login", "Modules\\Core\\Controllers\\AuthController", "login12"],
+    ["/auth/logout", "Modules\\Core\\Controllers\\AuthController", "logout12"],
+    ["/settings", "Modules\\Core\\Controllers\\SettingsController", "index12"]
+]

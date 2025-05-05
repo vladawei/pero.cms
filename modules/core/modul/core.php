@@ -15,27 +15,18 @@ class Core{
                 \Modules\Core\Modul\Install::seach_files();
             } 
             \Modules\Core\Modul\Router::start();
-            $builderSql = new \Modules\Router\Modul\Buildersql();
-            $builderSql->build(); // Загружаем маршруты из SQL
 
-            // Сохраняем в файл
-            if ($builderSql->save_routes_to_file()) {
-                echo "SQL роутинг успешен!";
-            } else {
-                echo "ошибка!";
-            }
 
 /*
-            $builder = new \Modules\Router\Modul\Builderjson();
-            $builder->build();
+            $builder = new \Modules\Router\Modul\Builder();
+            // Собираем и объединяем маршруты
+            $builder->start();   
 
-            // Сохраняем собранные роуты в файл
-            if ($builder->save_routes_to_file()) {
-                echo "Роуты успешно сохранены!";
-            } else {
-                echo "Ошибка при сохранении роутов!";
-            }
+
+            \Modules\Router\Modul\Loader::load_default_routes();
+            var_dump(\Modules\Router\Modul\Collector::get_all_routes());
 */
+
         } catch (\Throwable $e) {
             $this->e500([
                 'error_message' => $e->getMessage(),
