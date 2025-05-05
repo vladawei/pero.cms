@@ -51,7 +51,7 @@ class Head{
         $db_name = \Modules\Core\Modul\Env::get("DB_PREFIX")."heads";
         $pdo = Sql::connect();  
         $sth1 = $pdo->prepare("SELECT * FROM $db_name WHERE `url` = ? LIMIT 1");
-        $sth1->execute(array(\Modules\Core\Modul\Router::$url["d_line"]));
+        $sth1->execute(array(\Modules\Router\Modul\Router::$url["d_line"]));
         self::$sql_data = $sth1->fetch(\PDO::FETCH_ASSOC);
     }
 

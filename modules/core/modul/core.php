@@ -14,7 +14,10 @@ class Core{
             if(Env::get("APP_INSTALL") == "true"){
                 \Modules\Core\Modul\Install::seach_files();
             } 
-            \Modules\Core\Modul\Router::start();
+            \Modules\Router\Modul\Loader::load_default_routes();
+
+
+            \Modules\Router\Modul\Router::start();
 
 
 /*

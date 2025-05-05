@@ -1,0 +1,16 @@
+{
+    "generated_at": "2025-05-05 16:34:09",
+    "sources": {
+        "json_routes": 0,
+        "sql_routes": 0
+    },
+    "routes_count": 1,
+    "routes": [
+        {
+            "path": "/",
+            "class": "Modules\\Core\\Controller\\Index",
+            "method": "index",
+            "module": "core"
+        }
+    ]
+}

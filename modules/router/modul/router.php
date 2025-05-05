@@ -1,47 +1,51 @@
 <?php
 
-namespace Modules\Core\Modul;
+namespace Modules\Router\Modul;
 
 class Router{
+    // \Modules\Router\Modul\Router::start();
     public static $url;
     public static $need300 =  false;
     public static function start(){
         self::get_url_page();
         self::need_redirect300();
+        \Modules\Router\Modul\Loader::load_default_routes();
         self::go();
     }
     public static function go(){
-        $pdo = Sql::connect(); 
-        $sth = $pdo->prepare("SELECT * FROM `router` WHERE `url` = ?");
-        $sth->execute(array(self::$url["d_line"]));
-        $result_sql = $sth->fetch(\PDO::FETCH_ASSOC);
-
-        if(!isset($result_sql["id"]) or !($result_sql["id"] >= 1)) {
-            self::e404();
-            return ;
-        }   
-
-        $class = $result_sql["class"];
-        $funct = $result_sql["funct"];
-
-        if (!class_exists($class)) {
-            self::e500("Класс '$class' не найден.");
+            // Получаем текущий URL (адаптируйте под вашу реализацию)
+        $currentPath = self::$url["d_line"] ?? '/';
+        
+        // Ищем маршрут в Collector
+        $route = \Modules\Router\Modul\Collector::get_route($currentPath);
+        
+        // Если маршрут не найден - 404
+        if ($route === null) {
+            \Modules\Router\Modul\Errorhandler::e404();
             return;
         }
 
+        $class = $route['class'];
+        $method = $route['function'];
+
+        if (!class_exists($class)) {
+            \Modules\Router\Modul\Errorhandler::e500("Класс '$class' не найден.");
+            return;
+        }
 
         $controller = new $class;
 
-        if (!method_exists($controller, $funct) || !(new \ReflectionMethod($controller, $funct))->isPublic()) {
-            self::e500("Метод '$funct' в классе '$class' не найден или недоступен.");
+        if (!method_exists($controller, $method) || !(new \ReflectionMethod($controller, $method))->isPublic()) {
+            \Modules\Router\Modul\Errorhandler::e500("Метод '$method' в классе '$class' не найден или недоступен.");
             return;
         }
-
+        
         try {
-            // Вызов контроллера и метода
-            $controller->$funct();
+            // Вызываем метод контроллера
+            $controller->$method();
         } catch (\Throwable $e) {
-            self::e500("Ошибка при вызове метода '$class::$funct': " . $e->getMessage());
+            \Modules\Router\Modul\Errorhandler::e500("Ошибка при вызове метода '$class::$method': " . $e->getMessage()
+            );
         }
     }
 
@@ -92,25 +96,5 @@ class Router{
         if(!empty($_POST)){
             self::$url['post'] = $_POST;
         };
-    }
-    public static function e500($context){
-        http_response_code(500);
-        header('Content-Type: text/html; charset=utf-8');
-        $E500 = new \Modules\Core\Controller\E500;
-        $E500->index($context);
-    }
-
-    public static function e404(){
-        http_response_code(404);
-        header('Content-Type: text/html; charset=utf-8');
-        $e404 = new \Modules\Core\Controller\E404;
-        $e404->index();
-    }
-
-    public static function e401(){
-        http_response_code(401);
-        header('Content-Type: text/html; charset=utf-8');
-        $E401 = new \Modules\Core\Controller\E401;
-        $E401->index();
     }
 }
