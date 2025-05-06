@@ -51,8 +51,7 @@ class Core{
     }
 
     public function e500(array $context = []){
-        $router = new \Modules\Core\Modul\Router;
-        $router->e500($context);
+        \Modules\Router\Modul\Errorhandler::e500($context);
         exit;
     }
 }

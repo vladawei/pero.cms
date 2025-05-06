@@ -24,9 +24,9 @@ class Install{
                         foreach($file_list as $item_install){
                             self::$table = [];
                             $class_file = $pieces = explode(".", $item_install);
+                            if(strtolower($class_file[1]) != "php" ) continue;
                             $class = ucfirst($class_file[0]); 
                             $class = '\\'."Modules".'\\'.ucfirst($mod_dir).'\\'.ucfirst($mod_dir_dir).'\\'.$class;
-                            
                             $result = new $class;
 
                             if($stadiya == 0){
@@ -54,11 +54,13 @@ class Install{
         $pdo = Sql::connect();     
         foreach(self::$table as $sting_sql){
             try {
-                $pdo->exec($sting_sql);
+                var_dump("<pre>",$sting_sql,"</pre>");
+                $res = $pdo->exec($sting_sql);
                 self::$msg[] ="[ + ] " .$class ." Установлен";
             } catch (\PDOException $e) {
                 $msg = "";
                 $msg = $e->getMessage();
+                echo $e->getMessage();
                 self::$error_list[]  = "Ошибка Класс " . $class . " Возможно уже существует!";
                 self::$msg[] ="[ - ] " .$class ." Не установился!";
             }                         
