@@ -1,2 +1,3 @@
 @echo off
-php %~dp0dev.php %*
+"C:\OSPanel\modules\php\PHP_7.4\php.exe" "%~dp0dev.php" %*
+pause
