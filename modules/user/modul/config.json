@@ -2,7 +2,13 @@
     "messages": {
         "password_too_short": "Пароль должен содержать минимум {min_pass} символов",
         "password_too_long": "Пароль не должен превышать {max_pass} символов",
-        "username_taken": "Имя пользователя уже занято"
+        "passwords_dont_match": "Пароли не совпадают",
+        "username_taken": "Имя пользователя уже занято",
+        "username_too_short": "Имя должено содержать минимум {min_username} символов",
+        "username_too_long": "Имя не должено превышать {max_username} символов",
+        "email_invalid": "Некорректный формат email",
+        "common_required": "Поле обязательно для заполнения",
+        "server_error": "Ошибка сервера, попробуйте позже"
     },
     "limits": {
         "min_pass": 8,

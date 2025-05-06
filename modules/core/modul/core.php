@@ -19,7 +19,9 @@ class Core{
 
             \Modules\Router\Modul\Router::start();
 
-
+            $ver = new \Modules\User\Modul\Verification();
+            $ver->ver_username_free("jaligwei1");
+            var_dump($ver->msg);
 /*
             $config = \Modules\User\Modul\Config::get_instance();
             $errorMessage = $config->get_message('password_too_short', [
