@@ -19,8 +19,13 @@ class Core{
 
             \Modules\Router\Modul\Router::start();
 
-
 /*
+            $reg = new \Modules\User\Modul\Register();
+            $reg ->set_user("jaligwei","galigwei@ya.ru","dsadasdasdasdas",true);
+            $res = $reg ->register();
+            var_dump($res);
+
+
             $builder = new \Modules\Router\Modul\Builder();
             // Собираем и объединяем маршруты
             $builder->start();   
