@@ -1,0 +1,13 @@
+{
+    "messages": {
+        "password_too_short": "Пароль должен содержать минимум {min_pass} символов",
+        "password_too_long": "Пароль не должен превышать {max_pass} символов",
+        "username_taken": "Имя пользователя уже занято"
+    },
+    "limits": {
+        "min_pass": 8,
+        "max_pass": 32,
+        "min_username": 3,
+        "max_username": 20
+    }
+}

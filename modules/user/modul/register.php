@@ -38,7 +38,7 @@ class Register{
                 $this->user->set_id($id);
                 return ['success' => true, 'userId' => $id];
             }
-            
+            $this->user->set_id(0);            
             return ['success' => false, 'error' => 'Ошибка при регистрации'];
             
         } catch (\PDOException $e) {

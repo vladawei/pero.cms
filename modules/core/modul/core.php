@@ -19,7 +19,14 @@ class Core{
 
             \Modules\Router\Modul\Router::start();
 
+
 /*
+            $config = \Modules\User\Modul\Config::get_instance();
+            $errorMessage = $config->get_message('password_too_short', [
+                'min_pass' => $config->get('limits->min_pass')
+            ]);
+            echo $errorMessage;
+            
             $reg = new \Modules\User\Modul\Register();
             $reg ->set_user("jaligwei","galigwei@ya.ru","dsadasdasdasdas",true);
             $res = $reg ->register();
